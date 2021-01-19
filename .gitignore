@@ -1,0 +1,46 @@
+# General
+# General
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+*~
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+ehthumbs.db
+Thumbs.db
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Frontend ignore files
+npm-debug.log
+yarn-error.log
+node_modules
+.sass-cache
+.cache-frontend
+.tmp
+*.map
+bower_components
+
+# Project ignore files
+build
+src/css/style.min.js
+src/js/scripts.min.js
