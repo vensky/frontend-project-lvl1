@@ -1,17 +1,80 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import { moviesData } from './moviesData';
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const movie = moviesData[0];
+
+/*const movies = moviesData;*/
+
+function Image(props) {
+    return (
+        <img src={`imdb.com${props.src}`} alt={props.alt} />
+    )
+}
+
+class MovieItem extends React.Component {
+    constructor() {
+        super();
+
+        this.state = {
+            movies: moviesData,
+            show: false,
+            like: false
+        };
+    }
+
+    toggleOverview = () => {
+        this.setState({
+            show: !this.state.show
+        });
+    }
+
+    handleLike = () => {
+        this.setState({
+            like: !this.state.like
+        })
+    }
+
+    render() {
+        const { data: { title, vote_average, poster_path, overview } } = this.props;
+        return (
+            <div>
+{/*                 <Image src={poster_path} alt={title} />
+                <p>{title}</p>
+                <p>{vote_average}</p>
+                <button type="button" onClick={this.toggleOverview}>
+                    { this.state.show ? 'Hide' : 'Show' }
+                </button>*/}
+{/*                <button
+                    className={ `"btn " ${this.state.like ? "btn--like" : null}` }
+                    type="button"
+                    onClick={this.handleLike}
+                >
+                    { this.state.like ? 'Unlike' : 'Like' }
+                </button>*/}
+               {/* { this.state.show ? <p>{overview}</p> : null }*/}
+
+            {this.state.movies.map((movie) => {
+                return (<h2>{movie.title}</h2>)
+            })}
+            </div>
+        )
+    }
+}
+
+function App() {
+    return (
+        <div>
+            <MovieItem data={movie} />
+        </div>
+    )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+if (module.hot) {
+  module.hot.accept()
+}
