@@ -5,6 +5,8 @@ import './index.css';
 
 import { moviesData } from './moviesData';
 
+import MovieItem from './MovieItem';
+
 const movie = moviesData[0];
 
 /*const movies = moviesData;*/
@@ -15,7 +17,7 @@ function Image(props) {
     )
 }
 
-class MovieItem extends React.Component {
+class MovieItems extends React.Component {
     constructor() {
         super();
 
@@ -38,28 +40,29 @@ class MovieItem extends React.Component {
         })
     }
 
+    removeMovie = movie => {
+        const updateMovies = this.state.movies.filter(function(item) {
+                return item.id !== movie.id;
+        })
+        this.state.movies = updateMovies;
+        this.setState({
+            movies: updateMovies
+        });
+    }
+
     render() {
         const { data: { title, vote_average, poster_path, overview } } = this.props;
         return (
             <div>
-{/*                 <Image src={poster_path} alt={title} />
-                <p>{title}</p>
-                <p>{vote_average}</p>
-                <button type="button" onClick={this.toggleOverview}>
-                    { this.state.show ? 'Hide' : 'Show' }
-                </button>*/}
-{/*                <button
-                    className={ `"btn " ${this.state.like ? "btn--like" : null}` }
-                    type="button"
-                    onClick={this.handleLike}
-                >
-                    { this.state.like ? 'Unlike' : 'Like' }
-                </button>*/}
-               {/* { this.state.show ? <p>{overview}</p> : null }*/}
-
-            {this.state.movies.map((movie) => {
-                return (<h2>{movie.title}</h2>)
-            })}
+                {this.state.movies.map((movie) => {
+                    return (
+                        <MovieItem
+                            key={movie.id}
+                            movie={movie}
+                            removeMovie={this.removeMovie}
+                        />
+                    )
+                })}
             </div>
         )
     }
@@ -68,7 +71,7 @@ class MovieItem extends React.Component {
 function App() {
     return (
         <div>
-            <MovieItem data={movie} />
+            <MovieItems data={movie} />
         </div>
     )
 }
