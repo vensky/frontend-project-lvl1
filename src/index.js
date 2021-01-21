@@ -23,12 +23,13 @@ class MovieItems extends React.Component {
 
         this.state = {
             movies: moviesData,
+            moviesWillWatch: [],
             show: false,
             like: false
         };
     }
 
-    toggleOverview = () => {
+/*    toggleOverview = () => {
         this.setState({
             show: !this.state.show
         });
@@ -38,7 +39,7 @@ class MovieItems extends React.Component {
         this.setState({
             like: !this.state.like
         })
-    }
+    }*/
 
     removeMovie = movie => {
         const updateMovies = this.state.movies.filter(function(item) {
@@ -50,19 +51,31 @@ class MovieItems extends React.Component {
         });
     }
 
+    addMovieWillWatch = movie => {
+        const updateMoviesWillWatch = [...this.state.moviesWillWatch, movie];
+        /*updateMoviesWillWatch.push(movie);*/
+        this.setState({
+            moviesWillWatch: updateMoviesWillWatch
+        });
+    }
+
     render() {
         const { data: { title, vote_average, poster_path, overview } } = this.props;
         return (
-            <div>
-                {this.state.movies.map((movie) => {
-                    return (
-                        <MovieItem
-                            key={movie.id}
-                            movie={movie}
-                            removeMovie={this.removeMovie}
-                        />
-                    )
-                })}
+            <div className="continer">
+                <div>Will watch: {this.state.moviesWillWatch.length}</div>
+                <div className="card-list">
+                    {this.state.movies.map((movie) => {
+                        return (
+                            <MovieItem
+                                key={movie.id}
+                                movie={movie}
+                                removeMovie={this.removeMovie}
+                                addMovieWillWatch={this.addMovieWillWatch}
+                            />
+                        )
+                    })}
+                </div>
             </div>
         )
     }

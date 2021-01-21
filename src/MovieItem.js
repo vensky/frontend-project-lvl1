@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MovieItem = (props) => {
-    const { movie, removeMovie } = props;
+    const { movie, removeMovie, addMovieWillWatch } = props;
     return (
         <div className="card">
             <img
@@ -11,8 +11,8 @@ const MovieItem = (props) => {
             />
             <div className="card__body">
                 <h2 className="card__title">{movie.title}</h2>
-                <button type="button">Will whatch</button>
-                <button type="button" onClick={removeMovie.bind(this, props.movie)}>Delete movie</button>
+                <button type="button" onClick={addMovieWillWatch.bind(null, props.movie)}>Will watch</button>
+                <button type="button" onClick={removeMovie.bind(null, props.movie)}>Delete movie</button>
             </div>
         </div>
     )
