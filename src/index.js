@@ -7,45 +7,36 @@ import { moviesData } from './moviesData';
 
 import MovieItem from './MovieItem';
 
+const API_URL = 'https://api.themoviedb.org/3/discover/movie';
+const API_KEY = '3f4ca4f3a9750da53450646ced312397';
 const movie = moviesData[0];
-
-/*const movies = moviesData;*/
-
-function Image(props) {
-    return (
-        <img src={`imdb.com${props.src}`} alt={props.alt} />
-    )
-}
 
 class MovieItems extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            movies: moviesData,
+            movies: [],
             moviesWillWatch: [],
             show: false,
             like: false
         };
     }
 
-/*    toggleOverview = () => {
-        this.setState({
-            show: !this.state.show
-        });
-    }
-
-    handleLike = () => {
-        this.setState({
-            like: !this.state.like
+    componentDidMount() {
+        fetch(`${API_URL}?api_key=${API_KEY}`).then((response) => {
+            return response.json();
+        }).then((data) => {
+            this.setState({
+                movies: data.results
+            })
         })
-    }*/
+    }
 
     removeMovie = movie => {
         const updateMovies = this.state.movies.filter(function(item) {
                 return item.id !== movie.id;
         })
-        this.state.movies = updateMovies;
         this.setState({
             movies: updateMovies
         });
@@ -54,6 +45,15 @@ class MovieItems extends React.Component {
     addMovieWillWatch = movie => {
         const updateMoviesWillWatch = [...this.state.moviesWillWatch, movie];
         /*updateMoviesWillWatch.push(movie);*/
+        this.setState({
+            moviesWillWatch: updateMoviesWillWatch
+        });
+    }
+
+    removeMovieWillWatch = movie => {
+        const updateMoviesWillWatch = this.state.moviesWillWatch.filter(function(item) {
+                return item.id !== movie.id;
+        })
         this.setState({
             moviesWillWatch: updateMoviesWillWatch
         });
@@ -72,6 +72,7 @@ class MovieItems extends React.Component {
                                 movie={movie}
                                 removeMovie={this.removeMovie}
                                 addMovieWillWatch={this.addMovieWillWatch}
+                                removeMovieWillWatch={this.removeMovieWillWatch}
                             />
                         )
                     })}

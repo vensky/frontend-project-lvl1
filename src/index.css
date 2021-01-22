@@ -12,6 +12,13 @@ code {
     monospace;
 }
 
+button {
+    display: inline-block;
+    height: 40px;
+    min-width: 200px;
+    margin-right: 10px;
+}
+
 .card-list {
     display: flex;
     flex-flow: row wrap;
