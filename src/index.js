@@ -6,6 +6,7 @@ import './index.css';
 import { moviesData } from './moviesData';
 
 import MovieItem from './MovieItem';
+import MovieTabs from './MovieTabs';
 
 const API_URL = 'https://api.themoviedb.org/3/discover/movie';
 const API_KEY = '3f4ca4f3a9750da53450646ced312397';
@@ -18,13 +19,12 @@ class MovieItems extends React.Component {
         this.state = {
             movies: [],
             moviesWillWatch: [],
-            show: false,
-            like: false
+            sort_by: "revenue.desc"
         };
     }
 
     componentDidMount() {
-        fetch(`${API_URL}?api_key=${API_KEY}`).then((response) => {
+        fetch(`${API_URL}?api_key=${API_KEY}&sort_by=${this.state.sort_by}`).then((response) => {
             return response.json();
         }).then((data) => {
             this.setState({
@@ -59,10 +59,17 @@ class MovieItems extends React.Component {
         });
     }
 
+    updateSortBy = value => {
+        this.setState({
+            sort_by: value
+        })
+    }
+
     render() {
         const { data: { title, vote_average, poster_path, overview } } = this.props;
         return (
             <div className="continer">
+                <MovieTabs sort_by={this.state.sort_by} updateSortBy={this.updateSortBy} />
                 <div>Will watch: {this.state.moviesWillWatch.length}</div>
                 <div className="card-list">
                     {this.state.movies.map((movie) => {
@@ -85,6 +92,7 @@ class MovieItems extends React.Component {
 function App() {
     return (
         <div>
+
             <MovieItems data={movie} />
         </div>
     )

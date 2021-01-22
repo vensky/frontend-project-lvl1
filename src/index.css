@@ -34,3 +34,9 @@ button {
     background: blue;
     color: white;
 }
+
+li.active {
+    color: blue;
+    font-weight: bold;
+}
+
